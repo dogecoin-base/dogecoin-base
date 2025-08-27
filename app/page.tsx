@@ -36,6 +36,20 @@ function StarsBackground() {
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const roadmapItems = [
+    { phase: "Phase 1", text: "Launch Meme Coin + Viral Campaign" },
+    { phase: "Phase 2", text: "NFT Meme Collection & Community Contests" },
+    { phase: "Phase 3", text: "Shibe AMAs, partnerships & livestreams" },
+    { phase: "Phase 4", text: "Merch, IRL events & Meme Economy Expansion" },
+  ];
+
+  const faqItems = [
+    { q: "🐕 Is this financial advice?", a: "Absolutely not. Unless your financial advisor is a Shiba Inu in sunglasses. 😎" },
+    { q: "🚀 Will we reach the moon?", a: "Already there. 🌕 Just waiting for you to bring memes." },
+    { q: "✨ What powers Dogecoin Base?", a: "Memes, shibes, and cosmic meme energy ⚡🐶" },
+    { q: "🌐 Can I join?", a: "Always. Just bring your dankest memes and good vibes. 💫" },
+  ];
+
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-900 via-purple-800 to-black flex flex-col items-center justify-start p-6 text-center text-white">
       <StarsBackground />
@@ -129,12 +143,7 @@ export default function Page() {
       <section id="roadmap" className="mt-20 max-w-4xl w-full relative z-10">
         <h2 className="text-3xl font-bold mb-10 text-yellow-400 text-center">🗺️ Roadmap to the Moon</h2>
         <div className="relative border-l-4 border-yellow-400 pl-8 space-y-12">
-          {[
-            { phase: "Phase 1", text: "Launch Meme Coin + Viral Campaign" },
-            { phase: "Phase 2", text: "NFT Meme Collection & Community Contests" },
-            { phase: "Phase 3", text: "Shibe AMAs, partnerships & livestreams" },
-            { phase: "Phase 4", text: "Merch, IRL events & Meme Economy Expansion" },
-          ].map((item, i) => (
+          {roadmapItems.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -50 }}
@@ -142,7 +151,6 @@ export default function Page() {
               transition={{ duration: 0.8, delay: i * 0.2 }}
               className="relative"
             >
-              <span className="absolute -left-10 text-2xl">{item.icon}</span>
               <h3 className="text-xl font-bold text-white">{item.phase}</h3>
               <p className="text-gray-300">{item.text}</p>
             </motion.div>
@@ -154,7 +162,7 @@ export default function Page() {
       <section id="community" className="mt-16 max-w-4xl w-full bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl relative z-10">
         <h2 className="text-3xl font-bold mb-6 text-yellow-400">💬 Community</h2>
         <p className="text-gray-200 mb-8 font-semibold">
-          Dogecoin Base is not just a coin, it's a movement.  
+          Dogecoin Base is not just a coin, it&apos;s a movement.<br />
           Our shibes create memes, art, and laughter every day. 🚀🌕
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -175,12 +183,7 @@ export default function Page() {
       <section id="faq" className="mt-20 max-w-3xl w-full relative z-10">
         <h2 className="text-3xl font-bold mb-8 text-yellow-400 text-center">❓ FAQ</h2>
         <div className="space-y-6">
-          {[
-            { q: "🐕 Is this financial advice?", a: "Absolutely not. Unless your financial advisor is a Shiba Inu in sunglasses. 😎" },
-            { q: "🚀 Will we reach the moon?", a: "Already there. 🌕 Just waiting for you to bring memes." },
-            { q: "✨ What powers Dogecoin Base?", a: "Memes, shibes, and cosmic meme energy ⚡🐶" },
-            { q: "🌐 Can I join?", a: "Always. Just bring your dankest memes and good vibes. 💫" },
-          ].map((item, i) => (
+          {faqItems.map((item, i) => (
             <motion.div
               key={i}
               whileHover={{ scale: 1.05 }}
