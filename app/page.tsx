@@ -1,103 +1,289 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import { Twitter, LineChart, Menu, X, Rocket, Star } from "lucide-react";
 
-export default function Home() {
+// ✨ Stars Background with Shooting Stars
+function StarsBackground() {
+  const [stars, setStars] = useState<{ left: number; top: number; size: number }[]>([]);
+
+  useEffect(() => {
+    const s = Array.from({ length: 80 }, () => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+    }));
+    setStars(s);
+  }, []);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="absolute inset-0 overflow-hidden">
+      {stars.map((star, i) => (
+        <motion.div
+          key={i}
+          className="absolute bg-white rounded-full"
+          style={{ left: `${star.left}%`, top: `${star.top}%`, width: `${star.size}px`, height: `${star.size}px` }}
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 2 + Math.random() * 3, delay: Math.random() * 5 }}
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ))}
     </div>
   );
 }
+
+export default function Page() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-900 via-purple-800 to-black flex flex-col items-center justify-start p-6 text-center text-white">
+      <StarsBackground />
+
+      {/* Header */}
+      <header className="w-full flex justify-between items-center mb-8 relative z-10">
+        <h1 className="text-3xl font-extrabold text-yellow-400 drop-shadow-lg">🐶 Dogecoin Base</h1>
+        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-yellow-400">
+          {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+        <nav className={`md:flex gap-6 font-bold ${menuOpen ? "flex flex-col mt-4" : "hidden"}`}>
+          <a href="#memeconomics" className="hover:text-yellow-300">Memeconomics</a>
+          <a href="#roadmap" className="hover:text-yellow-300">Roadmap</a>
+          <a href="#community" className="hover:text-yellow-300">Community</a>
+          <a href="#faq" className="hover:text-yellow-300">FAQ</a>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <div className="relative w-44 h-44 mb-6 drop-shadow-2xl">
+        <Image src="/logo.gif" alt="Dogecoin Base Logo" fill style={{ objectFit: "contain" }} />
+      </div>
+      <h2 className="text-4xl md:text-6xl font-extrabold text-yellow-300 drop-shadow-2xl mb-4">
+        The Meme Coin of Zora 🚀
+      </h2>
+      <p className="text-lg md:text-2xl text-gray-200 max-w-2xl mb-6">
+        Powered by Shibes. Fueled by Memes. Destined for the Moon 🌕
+      </p>
+
+      {/* CTA Buttons */}
+      <div className="flex flex-wrap gap-4 justify-center mb-12 relative z-10">
+        <a href="https://zora.co/@dogecoin_base" target="_blank" rel="noopener noreferrer">
+          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-3xl px-8 py-4 shadow-xl transition-transform hover:scale-105">
+            🚀 Mint on Zora
+          </button>
+        </a>
+        <a href="https://x.com/dogecoin_base1" target="_blank" rel="noopener noreferrer">
+          <button className="bg-blue-500 hover:bg-blue-600 rounded-3xl px-6 py-3 flex items-center gap-2 text-white shadow-lg hover:scale-105 transition-transform">
+            <Twitter className="w-5 h-5" /> Twitter
+          </button>
+        </a>
+        <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer">
+          <button className="bg-green-500 hover:bg-green-600 rounded-3xl px-6 py-3 flex items-center gap-2 text-white shadow-lg hover:scale-105 transition-transform">
+            <LineChart className="w-5 h-5" /> DexScreener
+          </button>
+        </a>
+      </div>
+
+      {/* Memeconomics */}
+    <section id="memeconomics" className="mt-16 max-w-3xl w-full bg-white/20 backdrop-blur-md p-10 rounded-3xl shadow-2xl relative z-10">
+  <h2 className="text-3xl font-bold mb-6 text-yellow-400 text-center">📊 Memeconomics</h2>
+
+  <div className="flex flex-col items-center space-y-8">
+    {/* Community Memes */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1 }}
+      className="flex flex-col items-center"
+    >
+      <motion.span
+        className="text-5xl font-extrabold text-yellow-400 drop-shadow-glow"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        🐶 50%
+      </motion.span>
+      <p className="text-gray-200 font-semibold">Community Memes</p>
+    </motion.div>
+
+    {/* Locked Liquidity */}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1, delay: 0.5 }}
+      className="flex flex-col items-center"
+    >
+      <motion.span
+        className="text-5xl font-extrabold text-blue-400 drop-shadow-glow"
+        animate={{ opacity: [0.6, 1, 0.6] }}
+        transition={{ repeat: Infinity, duration: 3 }}
+      >
+        🔒 50%
+      </motion.span>
+      <p className="text-gray-200 font-semibold text-center">
+        Instantly locked in DEX liquidity.<br />
+        Remaining unlocks linearly over 5 years for the creator.
+      </p>
+    </motion.div>
+  </div>
+</section>
+
+
+      {/* Roadmap */}
+      <section id="roadmap" className="mt-20 max-w-4xl w-full relative z-10">
+  <h2 className="text-3xl font-bold mb-10 text-yellow-400 text-center">
+    🗺️ Roadmap to the Moon
+  </h2>
+
+  <div className="relative border-l-4 border-yellow-400 pl-8 space-y-12">
+    {/* Phase 1 */}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative"
+    >
+      <span className="absolute -left-10 text-2xl">🚀</span>
+      <h3 className="text-xl font-bold text-white">Phase 1</h3>
+      <p className="text-gray-300">Launch Meme Coin + Viral Campaign</p>
+    </motion.div>
+
+    {/* Phase 2 */}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className="relative"
+    >
+      <span className="absolute -left-10 text-2xl">🎨</span>
+      <h3 className="text-xl font-bold text-white">Phase 2</h3>
+      <p className="text-gray-300">NFT Meme Collection & Community Contests</p>
+    </motion.div>
+
+    {/* Phase 3 */}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      className="relative"
+    >
+      <span className="absolute -left-10 text-2xl">🐕</span>
+      <h3 className="text-xl font-bold text-white">Phase 3</h3>
+      <p className="text-gray-300">Shibe AMAs, partnerships & livestreams</p>
+    </motion.div>
+
+    {/* Phase 4 */}
+    <motion.div
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+      className="relative"
+    >
+      <span className="absolute -left-10 text-2xl">🌕</span>
+      <h3 className="text-xl font-bold text-white">Phase 4</h3>
+      <p className="text-gray-300">Merch, IRL events & Meme Economy Expansion</p>
+    </motion.div>
+  </div>
+</section>
+
+
+{/* 💬 Community */}
+<section id="community" className="mt-16 max-w-4xl w-full bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl relative z-10">
+  <h2 className="text-3xl font-bold mb-6 text-yellow-400">💬 Community</h2>
+  <p className="text-gray-200 mb-8 font-semibold">
+    Dogecoin Base is not just a coin, it's a movement.  
+    Our shibes create memes, art, and laughter every day. 🚀🌕
+  </p>
+
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <motion.div
+      whileHover={{ scale: 1.1, rotate: 5 }}
+      transition={{ type: "spring", stiffness: 200 }}
+      className="rounded-2xl overflow-hidden shadow-lg"
+    >
+      <Image src="/memes/meme1.gif" alt="Meme 1" width={300} height={300} className="w-full h-auto" />
+    </motion.div>
+
+    <motion.div
+      whileHover={{ scale: 1.1, rotate: -5 }}
+      transition={{ type: "spring", stiffness: 200 }}
+      className="rounded-2xl overflow-hidden shadow-lg"
+    >
+      <Image src="/memes/meme2.gif" alt="Meme 2" width={300} height={300} className="w-full h-auto" />
+    </motion.div>
+
+    <motion.div
+      whileHover={{ scale: 1.1, rotate: 3 }}
+      transition={{ type: "spring", stiffness: 200 }}
+      className="rounded-2xl overflow-hidden shadow-lg"
+    >
+      <Image src="/memes/meme3.gif" alt="Meme 3" width={300} height={300} className="w-full h-auto" />
+    </motion.div>
+  </div>
+</section>
+
+
+      {/* FAQ */}
+      <section id="faq" className="mt-20 max-w-3xl w-full relative z-10">
+  <h2 className="text-3xl font-bold mb-8 text-yellow-400 text-center">❓ FAQ</h2>
+  <div className="space-y-6">
+    
+    {/* Q1 */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
+    >
+      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
+        🐕 Is this financial advice?
+      </h3>
+      <p className="text-gray-200 mt-2">
+        Absolutely not. Unless your financial advisor is a Shiba Inu in sunglasses. 😎
+      </p>
+    </motion.div>
+
+    {/* Q2 */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
+    >
+      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
+        🚀 Will we reach the moon?
+      </h3>
+      <p className="text-gray-200 mt-2">
+        Already there. 🌕 Just waiting for you to bring memes.
+      </p>
+    </motion.div>
+
+    {/* Q3 */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
+    >
+      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
+        ✨ What powers Dogecoin Base?
+      </h3>
+      <p className="text-gray-200 mt-2">
+        Memes, shibes, and cosmic meme energy ⚡🐶
+      </p>
+    </motion.div>
+
+    {/* Q4 */}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
+    >
+      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
+        🌐 Can I join?
+      </h3>
+      <p className="text-gray-200 mt-2">
+        Always. Just bring your dankest memes and good vibes. 💫
+      </p>
+    </motion.div>
+
+  </div>
+</section>
+
+    </div>
+  );
+}
+
