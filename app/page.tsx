@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Twitter, LineChart, Menu, X, Rocket, Star } from "lucide-react";
+import { Twitter, LineChart, Menu, X } from "lucide-react";
 
-// ✨ Stars Background with Shooting Stars
+// ✨ Stars Background
 function StarsBackground() {
   const [stars, setStars] = useState<{ left: number; top: number; size: number }[]>([]);
 
@@ -54,7 +54,7 @@ export default function Page() {
         </nav>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <div className="relative w-44 h-44 mb-6 drop-shadow-2xl">
         <Image src="/logo.gif" alt="Dogecoin Base Logo" fill style={{ objectFit: "contain" }} />
       </div>
@@ -85,204 +85,113 @@ export default function Page() {
       </div>
 
       {/* Memeconomics */}
-    <section id="memeconomics" className="mt-16 max-w-3xl w-full bg-white/20 backdrop-blur-md p-10 rounded-3xl shadow-2xl relative z-10">
-  <h2 className="text-3xl font-bold mb-6 text-yellow-400 text-center">📊 Memeconomics</h2>
+      <section id="memeconomics" className="mt-16 max-w-3xl w-full bg-white/20 backdrop-blur-md p-10 rounded-3xl shadow-2xl relative z-10">
+        <h2 className="text-3xl font-bold mb-6 text-yellow-400 text-center">📊 Memeconomics</h2>
+        <div className="flex flex-col items-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
+          >
+            <motion.span
+              className="text-5xl font-extrabold text-yellow-400 drop-shadow-glow"
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            >
+              🐶 50%
+            </motion.span>
+            <p className="text-gray-200 font-semibold">Community Memes</p>
+          </motion.div>
 
-  <div className="flex flex-col items-center space-y-8">
-    {/* Community Memes */}
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1 }}
-      className="flex flex-col items-center"
-    >
-      <motion.span
-        className="text-5xl font-extrabold text-yellow-400 drop-shadow-glow"
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        🐶 50%
-      </motion.span>
-      <p className="text-gray-200 font-semibold">Community Memes</p>
-    </motion.div>
-
-    {/* Locked Liquidity */}
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, delay: 0.5 }}
-      className="flex flex-col items-center"
-    >
-      <motion.span
-        className="text-5xl font-extrabold text-blue-400 drop-shadow-glow"
-        animate={{ opacity: [0.6, 1, 0.6] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-      >
-        🔒 50%
-      </motion.span>
-      <p className="text-gray-200 font-semibold text-center">
-        Instantly locked in DEX liquidity.<br />
-        Remaining unlocks linearly over 5 years for the creator.
-      </p>
-    </motion.div>
-  </div>
-</section>
-
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="flex flex-col items-center"
+          >
+            <motion.span
+              className="text-5xl font-extrabold text-blue-400 drop-shadow-glow"
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+            >
+              🔒 50%
+            </motion.span>
+            <p className="text-gray-200 font-semibold text-center">
+              Instantly locked in DEX liquidity.<br />
+              Remaining unlocks linearly over 5 years for the creator.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Roadmap */}
       <section id="roadmap" className="mt-20 max-w-4xl w-full relative z-10">
-  <h2 className="text-3xl font-bold mb-10 text-yellow-400 text-center">
-    🗺️ Roadmap to the Moon
-  </h2>
+        <h2 className="text-3xl font-bold mb-10 text-yellow-400 text-center">🗺️ Roadmap to the Moon</h2>
+        <div className="relative border-l-4 border-yellow-400 pl-8 space-y-12">
+          {[
+            { phase: "Phase 1", text: "Launch Meme Coin + Viral Campaign" },
+            { phase: "Phase 2", text: "NFT Meme Collection & Community Contests" },
+            { phase: "Phase 3", text: "Shibe AMAs, partnerships & livestreams" },
+            { phase: "Phase 4", text: "Merch, IRL events & Meme Economy Expansion" },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: i * 0.2 }}
+              className="relative"
+            >
+              <span className="absolute -left-10 text-2xl">{item.icon}</span>
+              <h3 className="text-xl font-bold text-white">{item.phase}</h3>
+              <p className="text-gray-300">{item.text}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-  <div className="relative border-l-4 border-yellow-400 pl-8 space-y-12">
-    {/* Phase 1 */}
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      className="relative"
-    >
-      <span className="absolute -left-10 text-2xl">🚀</span>
-      <h3 className="text-xl font-bold text-white">Phase 1</h3>
-      <p className="text-gray-300">Launch Meme Coin + Viral Campaign</p>
-    </motion.div>
-
-    {/* Phase 2 */}
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-      className="relative"
-    >
-      <span className="absolute -left-10 text-2xl">🎨</span>
-      <h3 className="text-xl font-bold text-white">Phase 2</h3>
-      <p className="text-gray-300">NFT Meme Collection & Community Contests</p>
-    </motion.div>
-
-    {/* Phase 3 */}
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      className="relative"
-    >
-      <span className="absolute -left-10 text-2xl">🐕</span>
-      <h3 className="text-xl font-bold text-white">Phase 3</h3>
-      <p className="text-gray-300">Shibe AMAs, partnerships & livestreams</p>
-    </motion.div>
-
-    {/* Phase 4 */}
-    <motion.div
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.6 }}
-      className="relative"
-    >
-      <span className="absolute -left-10 text-2xl">🌕</span>
-      <h3 className="text-xl font-bold text-white">Phase 4</h3>
-      <p className="text-gray-300">Merch, IRL events & Meme Economy Expansion</p>
-    </motion.div>
-  </div>
-</section>
-
-
-{/* 💬 Community */}
-<section id="community" className="mt-16 max-w-4xl w-full bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl relative z-10">
-  <h2 className="text-3xl font-bold mb-6 text-yellow-400">💬 Community</h2>
-  <p className="text-gray-200 mb-8 font-semibold">
-    Dogecoin Base is not just a coin, it's a movement.  
-    Our shibes create memes, art, and laughter every day. 🚀🌕
-  </p>
-
-  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-    <motion.div
-      whileHover={{ scale: 1.1, rotate: 5 }}
-      transition={{ type: "spring", stiffness: 200 }}
-      className="rounded-2xl overflow-hidden shadow-lg"
-    >
-      <Image src="/memes/meme1.gif" alt="Meme 1" width={300} height={300} className="w-full h-auto" />
-    </motion.div>
-
-    <motion.div
-      whileHover={{ scale: 1.1, rotate: -5 }}
-      transition={{ type: "spring", stiffness: 200 }}
-      className="rounded-2xl overflow-hidden shadow-lg"
-    >
-      <Image src="/memes/meme2.gif" alt="Meme 2" width={300} height={300} className="w-full h-auto" />
-    </motion.div>
-
-    <motion.div
-      whileHover={{ scale: 1.1, rotate: 3 }}
-      transition={{ type: "spring", stiffness: 200 }}
-      className="rounded-2xl overflow-hidden shadow-lg"
-    >
-      <Image src="/memes/meme3.gif" alt="Meme 3" width={300} height={300} className="w-full h-auto" />
-    </motion.div>
-  </div>
-</section>
-
+      {/* Community */}
+      <section id="community" className="mt-16 max-w-4xl w-full bg-white/20 backdrop-blur-md p-8 rounded-3xl shadow-2xl relative z-10">
+        <h2 className="text-3xl font-bold mb-6 text-yellow-400">💬 Community</h2>
+        <p className="text-gray-200 mb-8 font-semibold">
+          Dogecoin Base is not just a coin, it's a movement.  
+          Our shibes create memes, art, and laughter every day. 🚀🌕
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[1,2,3].map((i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.1, rotate: i % 2 === 0 ? 5 : -5 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="rounded-2xl overflow-hidden shadow-lg"
+            >
+              <Image src={`/memes/meme${i}.gif`} alt={`Meme ${i}`} width={300} height={300} className="w-full h-auto" />
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* FAQ */}
       <section id="faq" className="mt-20 max-w-3xl w-full relative z-10">
-  <h2 className="text-3xl font-bold mb-8 text-yellow-400 text-center">❓ FAQ</h2>
-  <div className="space-y-6">
-    
-    {/* Q1 */}
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
-    >
-      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
-        🐕 Is this financial advice?
-      </h3>
-      <p className="text-gray-200 mt-2">
-        Absolutely not. Unless your financial advisor is a Shiba Inu in sunglasses. 😎
-      </p>
-    </motion.div>
-
-    {/* Q2 */}
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
-    >
-      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
-        🚀 Will we reach the moon?
-      </h3>
-      <p className="text-gray-200 mt-2">
-        Already there. 🌕 Just waiting for you to bring memes.
-      </p>
-    </motion.div>
-
-    {/* Q3 */}
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
-    >
-      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
-        ✨ What powers Dogecoin Base?
-      </h3>
-      <p className="text-gray-200 mt-2">
-        Memes, shibes, and cosmic meme energy ⚡🐶
-      </p>
-    </motion.div>
-
-    {/* Q4 */}
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
-    >
-      <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">
-        🌐 Can I join?
-      </h3>
-      <p className="text-gray-200 mt-2">
-        Always. Just bring your dankest memes and good vibes. 💫
-      </p>
-    </motion.div>
-
-  </div>
-</section>
-
+        <h2 className="text-3xl font-bold mb-8 text-yellow-400 text-center">❓ FAQ</h2>
+        <div className="space-y-6">
+          {[
+            { q: "🐕 Is this financial advice?", a: "Absolutely not. Unless your financial advisor is a Shiba Inu in sunglasses. 😎" },
+            { q: "🚀 Will we reach the moon?", a: "Already there. 🌕 Just waiting for you to bring memes." },
+            { q: "✨ What powers Dogecoin Base?", a: "Memes, shibes, and cosmic meme energy ⚡🐶" },
+            { q: "🌐 Can I join?", a: "Always. Just bring your dankest memes and good vibes. 💫" },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ scale: 1.05 }}
+              className="bg-white/10 p-6 rounded-2xl shadow-lg border border-yellow-400/30"
+            >
+              <h3 className="text-xl font-bold text-yellow-300 flex items-center gap-2">{item.q}</h3>
+              <p className="text-gray-200 mt-2">{item.a}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
