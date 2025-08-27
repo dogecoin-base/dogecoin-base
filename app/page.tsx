@@ -91,7 +91,7 @@ export default function Page() {
             <Twitter className="w-5 h-5" /> Twitter
           </button>
         </a>
-        <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://dexscreener.com/base/0xd3f134af33a937de19f9fcc4f8337eda224fa62e2cc561db85c420cf3033ac74" target="_blank" rel="noopener noreferrer">
           <button className="bg-green-500 hover:bg-green-600 rounded-3xl px-6 py-3 flex items-center gap-2 text-white shadow-lg hover:scale-105 transition-transform">
             <LineChart className="w-5 h-5" /> DexScreener
           </button>
